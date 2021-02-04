@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ammountsSchema = new mongoose.Schema({
+const ammountSchema = new mongoose.Schema({
 	category: {
 		type: String,
 		required: true,
@@ -9,11 +9,10 @@ const ammountsSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
-
 	date: {
 		type: Date,
 		default: Date.now,
 	},
 });
 
-module.exports = mongoose.model("Ammounts", ammountsSchema);
+module.exports = mongoose.model("ammountSchema", ammountSchema);

@@ -1,19 +1,5 @@
 const mongoose = require("mongoose");
-
-const ammountsSchema = new mongoose.Schema({
-	category: {
-		type: String,
-		required: true,
-	},
-	value: {
-		type: Number,
-		required: true,
-	},
-	date: {
-		type: Date,
-		default: Date.now,
-	},
-});
+const Ammount = require("./Ammount").schema;
 
 const projectSchema = new mongoose.Schema({
 	name: {
@@ -23,7 +9,7 @@ const projectSchema = new mongoose.Schema({
 	description: {
 		type: String,
 	},
-	ammounts: [ammountsSchema],
+	ammounts: [Ammount],
 
 	date: {
 		type: Date,

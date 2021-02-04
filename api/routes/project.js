@@ -85,4 +85,21 @@ router.patch("/:projectId", async (req, res) => {
 		res.json({ message: error });
 	}
 });
+
+//Create new ammount
+router.post("/add/:projectId", async (req, res) => {
+	const ammount = new Project(
+		{ _id: req.params.projectId },
+		{
+			ammounts: req.body.ammounts,
+		}
+	);
+	try {
+		const savedProject = await project.save();
+		res.send(ammount);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
+
 module.exports = router;
