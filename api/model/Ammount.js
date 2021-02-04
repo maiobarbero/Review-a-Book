@@ -15,4 +15,4 @@ const ammountSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("ammountSchema", ammountSchema);
+module.exports = mongoose.model("Ammount", ammountSchema);

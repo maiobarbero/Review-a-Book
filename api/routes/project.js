@@ -2,6 +2,7 @@ const router = require("express").Router();
 // const User = require("../model/User");
 //const verify = require("./verifyToken");
 const Project = require("../model/Project");
+const Ammount = require("../model/Ammount");
 
 // router.get("/", verify, (req, res) => {
 // 	res.send(req.user);
@@ -87,18 +88,22 @@ router.patch("/:projectId", async (req, res) => {
 });
 
 //Create new ammount
-router.post("/add/:projectId", async (req, res) => {
-	const ammount = new Project(
-		{ _id: req.params.projectId },
-		{
-			ammounts: req.body.ammounts,
-		}
-	);
+
+router.patch("/add/:projectId", async (req, res) => {
 	try {
-		const savedProject = await project.save();
-		res.send(ammount);
+		const updatedAmmount = await Project.updateOne(
+			{
+				_id: req.params.projectId,
+			},
+			{
+				$push: {
+					ammounts: { category: req.body.category, value: req.body.value },
+				},
+			}
+		);
+		res.json(updatedAmmount);
 	} catch (error) {
-		res.status(400).send(error);
+		res.json({ message: error });
 	}
 });
 
