@@ -9,11 +9,8 @@ const Project = require("../model/Project");
 // 	User.findOne({ _id: req.user });
 // });
 
-//PROJECT
-
+//Create new project
 router.post("/add", async (req, res) => {
-	//Create new project
-
 	const project = new Project({
 		name: req.body.name,
 		description: req.body.description,
@@ -27,4 +24,65 @@ router.post("/add", async (req, res) => {
 	}
 });
 
+//Get all the project
+router.get("/", async (req, res) => {
+	try {
+		const projects = await Project.find();
+		res.json(projects);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
+
+//get specific project
+router.get("/:projectId", async (req, res) => {
+	try {
+		const project = await Project.findById(req.params.projectId);
+		res.json(project);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
+
+//delete specific project
+router.delete("/:projectId", async (req, res) => {
+	try {
+		const removedProject = await Project.remove({ _id: req.params.projectId });
+		res.json(removedProject);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
+
+//Update specifi project
+
+// update DESCRIPTION
+router.patch("/:projectId", async (req, res) => {
+	try {
+		const updatedProject = await Project.updateOne(
+			{
+				_id: req.params.projectId,
+			},
+			{ $set: { description: req.body.description } }
+		);
+		res.json(updatedProject);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
+
+// update NAME
+router.patch("/:projectId", async (req, res) => {
+	try {
+		const updatedProject = await Project.updateOne(
+			{
+				_id: req.params.projectId,
+			},
+			{ $set: { description: req.body.name } }
+		);
+		res.json(updatedProject);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
 module.exports = router;
