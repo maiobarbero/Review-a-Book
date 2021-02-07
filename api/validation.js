@@ -17,5 +17,15 @@ const loginValidation = (data) => {
 	return schema.validate(data);
 };
 
+const starValidation = (data) => {
+	const schema = Joi.object({
+		name: Joi.string(),
+		author: Joi.string(),
+		review: Joi.string(),
+		star: Joi.number().integer().min(0).max(5),
+	});
+	return schema.validate(data);
+};
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.starValidation = starValidation;

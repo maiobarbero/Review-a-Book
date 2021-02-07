@@ -2,7 +2,7 @@ const router = require("express").Router();
 // const User = require("../model/User");
 //const verify = require("./verifyToken");
 const Book = require("../model/Book");
-
+const { starValidation } = require("../validation");
 // router.get("/", verify, (req, res) => {
 // 	res.send(req.user);
 // 	//info solo da quell'utente
@@ -11,9 +11,12 @@ const Book = require("../model/Book");
 
 //Create new book
 router.post("/", async (req, res) => {
+	const { error } = starValidation(req.body);
+	if (error) return res.status(400).send(error.details[0].message);
+
 	const book = new Book({
-		name: req.body.name,
-		author: req.body.author,
+		name: req.body.name.toLowerCase().replace(/\s+/g, ""),
+		author: req.body.author.toLowerCase().replace(/\s+/g, ""),
 		review: req.body.review,
 		star: req.body.star,
 	});
@@ -38,7 +41,9 @@ router.get("/", async (req, res) => {
 //get specific book by name
 router.get("/:bookTitle", async (req, res) => {
 	try {
-		const book = await Book.find({ name: req.params.bookTitle });
+		const book = await Book.find({
+			name: req.params.bookTitle.toLowerCase().replace(/\s+/g, ""),
+		});
 		res.json(book);
 	} catch (error) {
 		res.json({ message: error });
