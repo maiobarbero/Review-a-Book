@@ -1,20 +1,15 @@
 const mongoose = require("mongoose");
+const Review = require("./Review").schema;
 
 const bookSchema = new mongoose.Schema({
-	name: {
+	title: {
 		type: String,
 		required: true,
 	},
 	author: {
 		type: String,
 	},
-	review: {
-		type: String,
-		required: true,
-	},
-	star: {
-		type: Number,
-	},
+	reviews: [Review],
 
 	date: {
 		type: Date,

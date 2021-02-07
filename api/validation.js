@@ -19,8 +19,6 @@ const loginValidation = (data) => {
 
 const starValidation = (data) => {
 	const schema = Joi.object({
-		name: Joi.string(),
-		author: Joi.string(),
 		review: Joi.string(),
 		star: Joi.number().integer().min(0).max(5),
 	});
