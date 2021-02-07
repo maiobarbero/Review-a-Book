@@ -1,16 +1,15 @@
 const router = require("express").Router();
-// const User = require("../model/User");
-//const verify = require("./verifyToken");
+const User = require("../model/User");
+const verify = require("./verifyToken");
 const Book = require("../model/Book");
 const { starValidation } = require("../validation");
-// router.get("/", verify, (req, res) => {
-// 	res.send(req.user);
+
 // 	//info solo da quell'utente
 // 	User.findOne({ _id: req.user });
 // });
 
 //Create new book
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
 	const { error } = starValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
