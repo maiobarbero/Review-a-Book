@@ -2,33 +2,11 @@ const router = require("express").Router();
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 const { registerValidation, loginValidation } = require("../validation");
-
-//Multer
-
-const multerAvatar = require("multer");
-var storage = multerAvatar.diskStorage({
-	destination: function (request, file, callback) {
-		callback(null, "./public/uploads/avatars");
-	},
-
-	//add file extension
-	filename: function (request, file, callback) {
-		callback(null, Date.now() + file.originalname);
-	},
-});
-
-//Upload parameters
-
-const upload = multerAvatar({
-	storage: storage,
-	fileSize: "1M",
-});
 
 //Register
 
-router.post("/register", upload.single("avatar"), async (req, res) => {
+router.post("/register", async (req, res) => {
 	//Validate data before make user
 	const { error } = registerValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
@@ -46,7 +24,6 @@ router.post("/register", upload.single("avatar"), async (req, res) => {
 		name: req.body.name,
 		email: req.body.email,
 		password: hashPwd,
-		avatar: req.file.filename,
 	});
 	try {
 		const savedUser = await user.save();

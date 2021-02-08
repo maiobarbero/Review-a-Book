@@ -9,7 +9,7 @@ const Review = require("../model/Review");
 const multer = require("multer");
 var storage = multer.diskStorage({
 	destination: function (request, file, callback) {
-		callback(null, "./public/uploads/images");
+		callback(null, "./uploads");
 	},
 
 	//add file extension
@@ -67,7 +67,10 @@ router.patch("/:bookTitle", verify, async (req, res) => {
 //Get all the books
 router.get("/", async (req, res) => {
 	try {
-		const books = await Book.find();
+		const books = await Book.find().populate({
+			path: "reviews.user",
+			select: "name",
+		});
 		res.json(books);
 	} catch (error) {
 		res.json({ message: error });
@@ -78,7 +81,9 @@ router.get("/", async (req, res) => {
 router.get("/star", async (req, res) => {
 	var starRate = { star: -1 };
 	try {
-		const books = await Book.find().sort(starRate);
+		const books = await Book.find()
+			.sort(starRate)
+			.populate({ path: "reviews.user", select: "name" });
 		res.json(books);
 	} catch (error) {
 		res.json({ message: error });
@@ -89,8 +94,8 @@ router.get("/star", async (req, res) => {
 router.get("/:bookTitle", async (req, res) => {
 	try {
 		const book = await Book.find({
-			title: req.params.bookTitle.toLowerCase().replace(/\s+/g, ""),
-		});
+			title: req.params.bookTitle,
+		}).populate({ path: "reviews.user", select: "name" });
 		res.json(book);
 	} catch (error) {
 		res.json({ message: error });

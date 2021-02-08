@@ -15,7 +15,7 @@ const bookSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	image: { type: String },
+	image: { type: String, default: "default.png" },
 });
 
 module.exports = mongoose.model("Book", bookSchema);

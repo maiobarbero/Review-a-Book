@@ -38,11 +38,11 @@ var data = [
 		model: "Book",
 		documents: [
 			{
-				title: "title 1",
+				title: "title_1",
 				author: "test author 1",
 			},
 			{
-				title: "title 2",
+				title: "title_2",
 				author: "test author 2",
 			},
 		],
