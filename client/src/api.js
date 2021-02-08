@@ -3,4 +3,4 @@ const base_url = "http://localhost:3000/api/";
 
 //All Books
 
-export const all_books = () => `${base_url}book`;
+export const allBooks = () => `${base_url}book`;
