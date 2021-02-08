@@ -67,10 +67,12 @@ router.patch("/:bookTitle", verify, async (req, res) => {
 //Get all the books
 router.get("/", async (req, res) => {
 	try {
-		const books = await Book.find().populate({
-			path: "reviews.user",
-			select: "name",
-		});
+		const books = await Book.find()
+			.populate({
+				path: "reviews.user",
+				select: "name",
+			})
+			.sort({ date: -1 });
 		res.json(books);
 	} catch (error) {
 		res.json({ message: error });

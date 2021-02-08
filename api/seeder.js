@@ -38,12 +38,32 @@ var data = [
 		model: "Book",
 		documents: [
 			{
-				title: "title_1",
-				author: "test author 1",
+				title: "Figure",
+				author: "Riccardo Falcinelli",
 			},
 			{
-				title: "title_2",
-				author: "test author 2",
+				title: "Eymerich risorge",
+				author: "Valerio Evangelisti",
+			},
+			{
+				title: "Flatlandia",
+				author: "Edwin A. Abbot",
+			},
+			{
+				title: "Animal Farm",
+				author: "George Orwell",
+			},
+			{
+				title: "Cowspiracy",
+				author: "Kip Andresen e Keegan Kuhn",
+			},
+			{
+				title: "Il buio profondo",
+				author: "R. A. Salvatore",
+			},
+			{
+				title: "La democrazia in America",
+				author: "Alexis de Tocqueville",
 			},
 		],
 	},
