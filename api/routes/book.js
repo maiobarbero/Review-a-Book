@@ -1,20 +1,36 @@
 const router = require("express").Router();
-const User = require("../model/User");
 const verify = require("./verifyToken");
 const Book = require("../model/Book");
 const { starValidation } = require("../validation");
 const Review = require("../model/Review");
-const { updateOne } = require("../model/User");
 
-// 	//info solo da quell'utente
-// 	User.findOne({ _id: req.user });
-// });
+//Multer
+
+const multer = require("multer");
+var storage = multer.diskStorage({
+	destination: function (request, file, callback) {
+		callback(null, "./public/uploads/images");
+	},
+
+	//add file extension
+	filename: function (request, file, callback) {
+		callback(null, Date.now() + file.originalname);
+	},
+});
+
+//Upload parameters
+
+const upload = multer({
+	storage: storage,
+	fileSize: "1M",
+});
 
 //Create new book
-router.post("/", verify, async (req, res) => {
+router.post("/", verify, upload.single("image"), async (req, res) => {
 	const book = new Book({
 		title: req.body.title.toLowerCase().replace(/\s+/g, ""),
 		author: req.body.author.toLowerCase().replace(/\s+/g, ""),
+		image: req.file.filename,
 	});
 	try {
 		const savedBook = await book.save();
@@ -33,6 +49,7 @@ router.patch("/:bookTitle", verify, async (req, res) => {
 	const review = new Review({
 		review: req.body.review,
 		star: req.body.star,
+		user: req.user,
 	});
 
 	try {

@@ -2,7 +2,29 @@ const router = require("express").Router();
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
 const { registerValidation, loginValidation } = require("../validation");
+
+//Multer
+
+const multer = require("multer");
+var storage = multer.diskStorage({
+	destination: function (request, file, callback) {
+		callback(null, "./public/uploads/avatars");
+	},
+
+	//add file extension
+	filename: function (request, file, callback) {
+		callback(null, Date.now() + file.originalname);
+	},
+});
+
+//Upload parameters
+
+const upload = multer({
+	storage: storage,
+	fileSize: "1M",
+});
 
 //Register
 
@@ -51,6 +73,15 @@ router.post("/login", async (req, res) => {
 	//Json webtoken
 	const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 	res.header("auth-token", token).send(token);
+});
+
+router.get("/:userId", async (req, res) => {
+	try {
+		const user = await User.find({ _id: req.params.userId });
+		res.json(user);
+	} catch (error) {
+		res.status(400).send(error);
+	}
 });
 
 module.exports = router;
