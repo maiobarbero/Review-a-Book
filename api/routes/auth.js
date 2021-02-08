@@ -7,8 +7,8 @@ const { registerValidation, loginValidation } = require("../validation");
 
 //Multer
 
-const multer = require("multer");
-var storage = multer.diskStorage({
+const multerAvatar = require("multer");
+var storage = multerAvatar.diskStorage({
 	destination: function (request, file, callback) {
 		callback(null, "./public/uploads/avatars");
 	},
@@ -21,14 +21,14 @@ var storage = multer.diskStorage({
 
 //Upload parameters
 
-const upload = multer({
+const upload = multerAvatar({
 	storage: storage,
 	fileSize: "1M",
 });
 
 //Register
 
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("avatar"), async (req, res) => {
 	//Validate data before make user
 	const { error } = registerValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
@@ -46,6 +46,7 @@ router.post("/register", async (req, res) => {
 		name: req.body.name,
 		email: req.body.email,
 		password: hashPwd,
+		avatar: req.file.filename,
 	});
 	try {
 		const savedUser = await user.save();
