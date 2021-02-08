@@ -5,18 +5,10 @@ const initState = {
 const booksReducer = (state = { initState }, action) => {
 	switch (action.type) {
 		case "FETCH_ALL":
-			return { ...state };
+			return { ...state, books: action.payload.books };
 		default:
 			return { ...state };
 	}
-};
-
-//Action Creator
-const fetchBooks = (userData) => {
-	return {
-		type: "FETCH_ALL",
-		payload: userData,
-	};
 };
 
 export default booksReducer;
