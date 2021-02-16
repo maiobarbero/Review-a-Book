@@ -1,7 +1,7 @@
 # Review-a-Book
 Easily add a book to the DB or review an existing one - MERN stack App with login form
 
-##To run:
+##To run##:
 
 in api folder ($cd api)
 Edit .env file following .env.example
