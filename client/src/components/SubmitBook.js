@@ -4,7 +4,7 @@ import styled from "styled-components";
 //Axios
 import axios from "axios";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const SubmitBook = ({ toggle }) => {
 	//Title
