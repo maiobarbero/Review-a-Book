@@ -9,11 +9,11 @@ const { registerValidation, loginValidation } = require("../validation");
 router.post("/register", async (req, res) => {
 	//Validate data before make user
 	const { error } = registerValidation(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	if (error) return res.send(error.details[0].message).status(400);
 
 	//Check if User already in DB
 	const emailExist = await User.findOne({ email: req.body.email });
-	if (emailExist) return res.status(400).send("Email already in our database");
+	if (emailExist) return res.send("Email already in our database");
 
 	//Hash pwd
 	const salt = await bcrypt.genSalt(10);
@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
 	});
 	try {
 		const savedUser = await user.save();
-		res.send({ user: user._id });
+		res.send("Now you can Login");
 	} catch (err) {
 		res.status(400).send(err);
 	}

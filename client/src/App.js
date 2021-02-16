@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loadBooks } from "./actions/booksAction";
+import React from "react";
+//Components & Pages
+import Home from "./pages/Home";
+import GlobalStyle from "./components/GlobalStyle";
+import Nav from "./components/Nav";
+import UserNav from "./components/UserNav";
+
+//Route
+import { Route } from "react-router-dom";
 
 function App() {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(loadBooks());
-	});
 	return (
 		<div className="App">
-			<h1>Hello</h1>
+			<GlobalStyle />
+			<UserNav />
+			<Nav />
+			<Route path={["/book/:title", "/"]}>
+				<Home />
+			</Route>
 		</div>
 	);
 }

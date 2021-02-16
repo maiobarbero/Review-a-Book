@@ -5,59 +5,62 @@ const { starValidation } = require("../validation");
 const Review = require("../model/Review");
 
 //Multer
-
+const path = require("path");
 const multer = require("multer");
-var storage = multer.diskStorage({
-	destination: function (request, file, callback) {
-		callback(null, "./uploads");
-	},
+const store = multer.diskStorage({
+	destination: "./public/images",
 
-	//add file extension
-	filename: function (request, file, callback) {
-		callback(null, Date.now() + file.originalname);
+	filename: function (req, file, cb) {
+		cb(
+			null,
+			req.body.title.split(" ").join("").toLowerCase() +
+				path.extname(file.originalname)
+		);
 	},
 });
 
 //Upload parameters
 
 const upload = multer({
-	storage: storage,
-	fileSize: "1M",
+	storage: store,
 });
 
 //Create new book
-router.post("/", verify, upload.single("image"), async (req, res) => {
+router.post("/", upload.single("image"), verify, async (req, res, next) => {
 	const book = new Book({
-		title: req.body.title.toLowerCase().replace(/\s+/g, ""),
-		author: req.body.author.toLowerCase().replace(/\s+/g, ""),
-		image: req.file.filename,
+		title: req.body.title,
+		author: req.body.author,
+		image: req.body.imageTitle,
 	});
 	try {
 		const savedBook = await book.save();
 		res.send(savedBook);
 	} catch (error) {
-		res.status(400).send(error);
+		res.send(error);
 	}
 });
 
 //Add a review
 
-router.patch("/:bookTitle", verify, async (req, res) => {
+router.patch("/review/:bookId", verify, async (req, res) => {
 	const { error } = starValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
+	console.log(req.params.bookId);
 
-	const review = new Review({
+	const newReview = new Review({
 		review: req.body.review,
 		star: req.body.star,
 		user: req.user,
 	});
-
+	console.log(newReview);
 	try {
 		const book = await Book.findOneAndUpdate(
-			{ title: req.params.bookTitle },
-			{ $push: { reviews: review } }
+			{ _id: req.params.bookId },
+			{
+				$push: { reviews: newReview },
+			}
 		);
-
+		console.log(book);
 		res.send(book);
 	} catch (error) {
 		res.status(400).send(error);
@@ -68,6 +71,7 @@ router.patch("/:bookTitle", verify, async (req, res) => {
 router.get("/", async (req, res) => {
 	try {
 		const books = await Book.find()
+			.limit(6)
 			.populate({
 				path: "reviews.user",
 				select: "name",
@@ -80,11 +84,12 @@ router.get("/", async (req, res) => {
 });
 
 //Get all the books by Star rate
-router.get("/star", async (req, res) => {
-	var starRate = { star: -1 };
+router.get("/popular", async (req, res) => {
 	try {
 		const books = await Book.find()
-			.sort(starRate)
+			.sort({ reviews: 1, _id: 1 })
+			.limit(6)
+
 			.populate({ path: "reviews.user", select: "name" });
 		res.json(books);
 	} catch (error) {
@@ -92,12 +97,27 @@ router.get("/star", async (req, res) => {
 	}
 });
 
-//get specific book by title
-router.get("/:bookTitle", async (req, res) => {
+//get specific book by _id
+router.get("/:bookId", async (req, res) => {
 	try {
 		const book = await Book.find({
-			title: req.params.bookTitle,
+			_id: req.params.bookId,
 		}).populate({ path: "reviews.user", select: "name" });
+		res.json(book);
+	} catch (error) {
+		res.json({ message: error });
+	}
+});
+
+//get specific book by title
+router.get("/title/:title", async (req, res) => {
+	try {
+		const book = await Book.find({
+			title: { $regex: req.params.title, $options: "xi" },
+		}).populate({
+			path: "reviews.user",
+			select: "name",
+		});
 		res.json(book);
 	} catch (error) {
 		res.json({ message: error });

@@ -40,10 +40,45 @@ var data = [
 			{
 				title: "Figure",
 				author: "Riccardo Falcinelli",
+				reviews: [
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 5,
+					},
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 2,
+					},
+				],
 			},
 			{
 				title: "Eymerich risorge",
 				author: "Valerio Evangelisti",
+				reviews: [
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 5,
+					},
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 5,
+					},
+
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 4,
+					},
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 3,
+					},
+				],
 			},
 			{
 				title: "Flatlandia",
@@ -52,10 +87,29 @@ var data = [
 			{
 				title: "Animal Farm",
 				author: "George Orwell",
+				reviews: [
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 1,
+					},
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 2,
+					},
+				],
 			},
 			{
 				title: "Cowspiracy",
 				author: "Kip Andresen e Keegan Kuhn",
+				reviews: [
+					{
+						review:
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum et ante tempus convallis. Praesent bibendum condimentum efficitur. Integer vulputate sit amet eros vitae viverra. Fusce eget libero tempus, volutpat sem sed, porta quam. Etiam a enim nunc. Nullam nec imperdiet sapien. In ac tortor tempus, luctus dolor a, consequat ligula.",
+						star: 5,
+					},
+				],
 			},
 			{
 				title: "Il buio profondo",
