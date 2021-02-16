@@ -6,15 +6,17 @@ Easily add a book to the DB or review an existing one - MERN stack App with logi
 in api folder ($cd api)
 *Edit .env file following .env.example
 
- *```
+ ``` 
  npm start
- npm run seed ```
+ npm run seed
+ ```
+ 
  
 The second one is to populate db with some example data
 
-*in cliend folder ($cd client)
+in cliend folder ($cd client)
 
- ```npm start
+ ```npm start```
 
  
 
